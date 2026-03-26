@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Bot } from "lucide-react";
+import { ArrowLeft, Send, Bot } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
 type Msg = { role: "user" | "assistant"; content: string };
@@ -104,7 +104,6 @@ const ChatBot = () => {
         }
       }
 
-      // Final flush
       if (textBuffer.trim()) {
         for (let raw of textBuffer.split("\n")) {
           if (!raw) continue;
@@ -140,7 +139,7 @@ const ChatBot = () => {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Button - smaller */}
       <AnimatePresence>
         {!open && (
           <motion.button
@@ -150,30 +149,27 @@ const ChatBot = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setOpen(true)}
-            className="fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full flex items-center justify-center shadow-lg shadow-primary/30"
+            className="fixed bottom-4 right-4 z-50 w-11 h-11 rounded-full flex items-center justify-center shadow-lg shadow-primary/30"
             style={{
               background: "linear-gradient(135deg, hsl(202 100% 58%), hsl(202 80% 40%))",
             }}
             aria-label="Buka chatbot"
           >
-            <Bot size={26} className="text-primary-foreground" />
+            <Bot size={20} className="text-primary-foreground" />
           </motion.button>
         )}
       </AnimatePresence>
 
-      {/* Chat Window */}
+      {/* Full-screen Chat Window */}
       <AnimatePresence>
         {open && (
           <motion.div
-            initial={{ opacity: 0, y: 40, scale: 0.9 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.9 }}
-            transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="fixed bottom-5 right-5 z-50 w-[340px] sm:w-[380px] h-[500px] max-h-[80vh] rounded-2xl border border-border/60 overflow-hidden flex flex-col"
-            style={{
-              background: "hsl(var(--card))",
-              boxShadow: "0 8px 40px hsl(202 100% 58% / 0.15), 0 0 0 1px hsl(var(--border) / 0.3)",
-            }}
+            initial={{ opacity: 0, y: "100%" }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: "100%" }}
+            transition={{ type: "spring", damping: 28, stiffness: 300 }}
+            className="fixed inset-0 z-50 flex flex-col"
+            style={{ background: "hsl(var(--background))" }}
           >
             {/* Header */}
             <div
@@ -182,20 +178,20 @@ const ChatBot = () => {
                 background: "linear-gradient(135deg, hsl(205 50% 10%), hsl(205 50% 8%))",
               }}
             >
-              <div className="w-9 h-9 rounded-full flex items-center justify-center bg-primary/20 border border-primary/30">
-                <Bot size={20} className="text-primary" />
+              <button
+                onClick={() => setOpen(false)}
+                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-secondary transition-colors"
+                aria-label="Kembali"
+              >
+                <ArrowLeft size={18} className="text-muted-foreground" />
+              </button>
+              <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/20 border border-primary/30">
+                <Bot size={16} className="text-primary" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-foreground">Asisten Portfolio</p>
                 <p className="text-[10px] text-muted-foreground">AI Assistant • Yoga Pratama</p>
               </div>
-              <button
-                onClick={() => setOpen(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-secondary transition-colors"
-                aria-label="Tutup chatbot"
-              >
-                <X size={16} className="text-muted-foreground" />
-              </button>
             </div>
 
             {/* Messages */}
@@ -213,8 +209,18 @@ const ChatBot = () => {
                     }`}
                   >
                     {msg.role === "assistant" ? (
-                      <div className="prose prose-sm prose-invert max-w-none [&>p]:m-0 [&>ul]:my-1 [&>ol]:my-1">
-                        <ReactMarkdown>{msg.content}</ReactMarkdown>
+                      <div className="prose prose-sm prose-invert max-w-none [&>p]:m-0 [&>ul]:my-1 [&>ol]:my-1 [&_a]:text-primary [&_a]:underline [&_a]:underline-offset-2 hover:[&_a]:brightness-125">
+                        <ReactMarkdown
+                          components={{
+                            a: ({ href, children }) => (
+                              <a href={href} target="_blank" rel="noopener noreferrer">
+                                {children}
+                              </a>
+                            ),
+                          }}
+                        >
+                          {msg.content}
+                        </ReactMarkdown>
                       </div>
                     ) : (
                       msg.content
