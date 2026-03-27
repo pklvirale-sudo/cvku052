@@ -3,7 +3,7 @@ import { Instagram, Youtube, Github, Linkedin } from "lucide-react";
 const Footer = () => {
   return (
     <footer className="py-10 px-5 sm:px-6 border-t border-border/30">
-      <div className="container max-w-3xl mx-auto flex flex-col items-center gap-4">
+      <div className="container max-w-4xl mx-auto flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
           <a
             href="https://www.instagram.com/gatama_52?igsh=MTBwb25rMG1kMXN0aQ=="
@@ -53,7 +53,7 @@ const Footer = () => {
             <Linkedin size={20} />
           </a>
         </div>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-muted-foreground text-sm whitespace-nowrap">
           © 2025 Dibuat dengan <span className="text-destructive">❤️</span> oleh <span className="text-primary font-medium">Yoga Pratama</span>
         </p>
       </div>

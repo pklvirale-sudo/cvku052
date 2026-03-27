@@ -23,6 +23,7 @@ const ChatBot = () => {
   ]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showTooltip, setShowTooltip] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -39,6 +40,16 @@ const ChatBot = () => {
     const handler = () => setOpen(true);
     window.addEventListener("open-chatbot", handler);
     return () => window.removeEventListener("open-chatbot", handler);
+  }, []);
+
+  // Show tooltip after mount, then hide
+  useEffect(() => {
+    const showTimer = setTimeout(() => setShowTooltip(true), 1500);
+    const hideTimer = setTimeout(() => setShowTooltip(false), 6000);
+    return () => {
+      clearTimeout(showTimer);
+      clearTimeout(hideTimer);
+    };
   }, []);
 
   const send = async () => {
@@ -144,25 +155,42 @@ const ChatBot = () => {
 
   return (
     <>
-      {/* Floating Button */}
+      {/* Floating Button + Tooltip */}
       <AnimatePresence>
         {!open && (
-          <motion.button
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            exit={{ scale: 0 }}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => setOpen(true)}
-            className="fixed bottom-5 right-5 z-50 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
-            style={{
-              background: "linear-gradient(135deg, hsl(202 100% 58%), hsl(202 80% 40%))",
-              boxShadow: "0 4px 20px hsl(202 100% 58% / 0.4)",
-            }}
-            aria-label="Buka chatbot"
-          >
-            <Bot size={22} className="text-primary-foreground" />
-          </motion.button>
+          <div className="fixed bottom-6 right-5 z-50 flex items-end gap-2.5">
+            {/* Tooltip */}
+            <AnimatePresence>
+              {showTooltip && (
+                <motion.div
+                  initial={{ opacity: 0, x: 10, scale: 0.9 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: 10, scale: 0.9 }}
+                  transition={{ duration: 0.35 }}
+                  className="mb-1 px-3 py-2 rounded-xl text-xs leading-snug max-w-[180px] border border-border/40 bg-card/90 backdrop-blur-md text-muted-foreground shadow-lg"
+                  style={{
+                    boxShadow: "0 4px 20px hsl(202 100% 58% / 0.15)",
+                  }}
+                >
+                  Ada pertanyaan? AI Assistant siap membantumu
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Button */}
+            <motion.button
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              exit={{ scale: 0 }}
+              whileHover={{ scale: 1.08 }}
+              whileTap={{ scale: 0.92 }}
+              onClick={() => setOpen(true)}
+              className="ai-fab w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+              aria-label="Buka chatbot"
+            >
+              <Bot size={20} className="text-primary-foreground" />
+            </motion.button>
+          </div>
         )}
       </AnimatePresence>
 
@@ -230,7 +258,6 @@ const ChatBot = () => {
                     ) : (
                       msg.content
                     )}
-                    {/* Timestamp */}
                     <span className={`block text-[9px] mt-1 text-right ${
                       msg.role === "user" ? "text-primary-foreground/60" : "text-muted-foreground/60"
                     }`}>
