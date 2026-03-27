@@ -3,17 +3,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft, Send, Bot } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 
-type Msg = { role: "user" | "assistant"; content: string };
+type Msg = { role: "user" | "assistant"; content: string; time: string };
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+
+const getTime = () => {
+  const now = new Date();
+  return `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`;
+};
 
 const ChatBot = () => {
   const [open, setOpen] = useState(false);
   const [messages, setMessages] = useState<Msg[]>([
     {
       role: "assistant",
-      content:
-        "Halo! 👋 Aku Asisten Portfolio Yoga. Ada yang bisa aku bantu tentang profil, skill, project, atau layanan Yoga?",
+      content: "Halo! 👋 Aku Asisten Portfolio Yoga. Ada yang bisa aku bantu tentang profil, skill, project, atau layanan Yoga?",
+      time: getTime(),
     },
   ]);
   const [input, setInput] = useState("");
@@ -23,23 +28,31 @@ const ChatBot = () => {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, isLoading]);
 
   useEffect(() => {
-    if (open) inputRef.current?.focus();
+    if (open) setTimeout(() => inputRef.current?.focus(), 100);
   }, [open]);
+
+  // Listen for "open-chatbot" custom event from Hero CTA
+  useEffect(() => {
+    const handler = () => setOpen(true);
+    window.addEventListener("open-chatbot", handler);
+    return () => window.removeEventListener("open-chatbot", handler);
+  }, []);
 
   const send = async () => {
     const text = input.trim();
     if (!text || isLoading) return;
 
-    const userMsg: Msg = { role: "user", content: text };
+    const userMsg: Msg = { role: "user", content: text, time: getTime() };
     const newMessages = [...messages, userMsg];
     setMessages(newMessages);
     setInput("");
     setIsLoading(true);
 
     let assistantSoFar = "";
+    const assistantTime = getTime();
 
     try {
       const resp = await fetch(CHAT_URL, {
@@ -48,7 +61,7 @@ const ChatBot = () => {
           "Content-Type": "application/json",
           Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
         },
-        body: JSON.stringify({ messages: newMessages }),
+        body: JSON.stringify({ messages: newMessages.map(m => ({ role: m.role, content: m.content })) }),
       });
 
       if (!resp.ok || !resp.body) {
@@ -76,10 +89,7 @@ const ChatBot = () => {
           if (!line.startsWith("data: ")) continue;
 
           const jsonStr = line.slice(6).trim();
-          if (jsonStr === "[DONE]") {
-            streamDone = true;
-            break;
-          }
+          if (jsonStr === "[DONE]") { streamDone = true; break; }
 
           try {
             const parsed = JSON.parse(jsonStr);
@@ -90,11 +100,9 @@ const ChatBot = () => {
               setMessages((prev) => {
                 const last = prev[prev.length - 1];
                 if (last?.role === "assistant" && prev.length > newMessages.length) {
-                  return prev.map((m, i) =>
-                    i === prev.length - 1 ? { ...m, content: current } : m
-                  );
+                  return prev.map((m, i) => i === prev.length - 1 ? { ...m, content: current } : m);
                 }
-                return [...prev, { role: "assistant", content: current }];
+                return [...prev, { role: "assistant", content: current, time: assistantTime }];
               });
             }
           } catch {
@@ -104,6 +112,7 @@ const ChatBot = () => {
         }
       }
 
+      // Flush remaining buffer
       if (textBuffer.trim()) {
         for (let raw of textBuffer.split("\n")) {
           if (!raw) continue;
@@ -118,11 +127,7 @@ const ChatBot = () => {
             if (content) {
               assistantSoFar += content;
               const current = assistantSoFar;
-              setMessages((prev) =>
-                prev.map((m, i) =>
-                  i === prev.length - 1 ? { ...m, content: current } : m
-                )
-              );
+              setMessages((prev) => prev.map((m, i) => i === prev.length - 1 ? { ...m, content: current } : m));
             }
           } catch {}
         }
@@ -130,7 +135,7 @@ const ChatBot = () => {
     } catch (e: any) {
       setMessages((prev) => [
         ...prev,
-        { role: "assistant", content: e.message || "Maaf, terjadi kesalahan. Coba lagi nanti ya." },
+        { role: "assistant", content: e.message || "Maaf, terjadi kesalahan. Coba lagi nanti ya.", time: getTime() },
       ]);
     } finally {
       setIsLoading(false);
@@ -139,7 +144,7 @@ const ChatBot = () => {
 
   return (
     <>
-      {/* Floating Button - smaller */}
+      {/* Floating Button */}
       <AnimatePresence>
         {!open && (
           <motion.button
@@ -149,18 +154,19 @@ const ChatBot = () => {
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             onClick={() => setOpen(true)}
-            className="fixed bottom-4 right-4 z-50 w-11 h-11 rounded-full flex items-center justify-center shadow-lg shadow-primary/30"
+            className="fixed bottom-5 right-5 z-50 w-12 h-12 rounded-full flex items-center justify-center shadow-lg"
             style={{
               background: "linear-gradient(135deg, hsl(202 100% 58%), hsl(202 80% 40%))",
+              boxShadow: "0 4px 20px hsl(202 100% 58% / 0.4)",
             }}
             aria-label="Buka chatbot"
           >
-            <Bot size={20} className="text-primary-foreground" />
+            <Bot size={22} className="text-primary-foreground" />
           </motion.button>
         )}
       </AnimatePresence>
 
-      {/* Full-screen Chat Window */}
+      {/* Full-screen Chat */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -172,40 +178,41 @@ const ChatBot = () => {
             style={{ background: "hsl(var(--background))" }}
           >
             {/* Header */}
-            <div
-              className="flex items-center gap-3 px-4 py-3 border-b border-border/40"
-              style={{
-                background: "linear-gradient(135deg, hsl(205 50% 10%), hsl(205 50% 8%))",
-              }}
-            >
+            <div className="flex items-center gap-3 px-4 py-3 border-b border-border/30 bg-card/80 backdrop-blur-md safe-top">
               <button
                 onClick={() => setOpen(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-secondary transition-colors"
+                className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-secondary/60 transition-colors"
                 aria-label="Kembali"
               >
                 <ArrowLeft size={18} className="text-muted-foreground" />
               </button>
-              <div className="w-8 h-8 rounded-full flex items-center justify-center bg-primary/20 border border-primary/30">
-                <Bot size={16} className="text-primary" />
+              <div className="w-9 h-9 rounded-full flex items-center justify-center bg-primary/15 border border-primary/30">
+                <Bot size={18} className="text-primary" />
               </div>
               <div className="flex-1">
-                <p className="text-sm font-semibold text-foreground">Asisten Portfolio</p>
-                <p className="text-[10px] text-muted-foreground">AI Assistant • Yoga Pratama</p>
+                <p className="text-sm font-semibold text-foreground leading-tight">Asisten Portfolio Yoga</p>
+                <p className="text-[10px] text-muted-foreground mt-0.5">
+                  {isLoading ? (
+                    <span className="text-primary">Sedang mengetik...</span>
+                  ) : (
+                    <span className="flex items-center gap-1">
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-400 inline-block" />
+                      Online
+                    </span>
+                  )}
+                </p>
               </div>
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3 scrollbar-thin">
+            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 overscroll-contain">
               {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-                >
+                <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
-                    className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed ${
+                    className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed relative ${
                       msg.role === "user"
                         ? "bg-primary text-primary-foreground rounded-br-md"
-                        : "bg-secondary/60 text-foreground rounded-bl-md"
+                        : "bg-secondary/50 border border-border/30 text-foreground rounded-bl-md"
                     }`}
                   >
                     {msg.role === "assistant" ? (
@@ -213,9 +220,7 @@ const ChatBot = () => {
                         <ReactMarkdown
                           components={{
                             a: ({ href, children }) => (
-                              <a href={href} target="_blank" rel="noopener noreferrer">
-                                {children}
-                              </a>
+                              <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
                             ),
                           }}
                         >
@@ -225,12 +230,20 @@ const ChatBot = () => {
                     ) : (
                       msg.content
                     )}
+                    {/* Timestamp */}
+                    <span className={`block text-[9px] mt-1 text-right ${
+                      msg.role === "user" ? "text-primary-foreground/60" : "text-muted-foreground/60"
+                    }`}>
+                      {msg.time}
+                    </span>
                   </div>
                 </div>
               ))}
+
+              {/* Typing indicator */}
               {isLoading && messages[messages.length - 1]?.role === "user" && (
                 <div className="flex justify-start">
-                  <div className="bg-secondary/60 rounded-2xl rounded-bl-md px-4 py-3">
+                  <div className="bg-secondary/50 border border-border/30 rounded-2xl rounded-bl-md px-4 py-3">
                     <div className="flex gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-primary/60 animate-bounce [animation-delay:0ms]" />
                       <span className="w-2 h-2 rounded-full bg-primary/60 animate-bounce [animation-delay:150ms]" />
@@ -243,21 +256,21 @@ const ChatBot = () => {
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-border/40">
-              <div className="flex gap-2">
+            <div className="px-4 py-3 border-t border-border/30 bg-card/80 backdrop-blur-md safe-bottom">
+              <div className="flex gap-2.5">
                 <input
                   ref={inputRef}
                   value={input}
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && send()}
-                  placeholder="Tanyakan sesuatu..."
-                  className="flex-1 bg-secondary/50 border border-border/40 rounded-xl px-3.5 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+                  placeholder="Tanyakan sesuatu tentang Yoga..."
+                  className="flex-1 bg-secondary/40 border border-border/40 rounded-xl px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
                   disabled={isLoading}
                 />
                 <button
                   onClick={send}
                   disabled={isLoading || !input.trim()}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center bg-primary text-primary-foreground disabled:opacity-40 hover:brightness-110 transition-all"
+                  className="w-10 h-10 rounded-xl flex items-center justify-center bg-primary text-primary-foreground disabled:opacity-40 hover:brightness-110 transition-all flex-shrink-0"
                   aria-label="Kirim pesan"
                 >
                   <Send size={16} />

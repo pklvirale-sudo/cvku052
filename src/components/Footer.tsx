@@ -2,8 +2,8 @@ import { Instagram, Youtube, Github, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="py-8 px-2 sm:px-4 border-t border-border/30">
-      <div className="container max-w-6xl mx-auto flex flex-col items-center gap-4">
+    <footer className="py-10 px-5 sm:px-6 border-t border-border/30">
+      <div className="container max-w-3xl mx-auto flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
           <a
             href="https://www.instagram.com/gatama_52?igsh=MTBwb25rMG1kMXN0aQ=="
