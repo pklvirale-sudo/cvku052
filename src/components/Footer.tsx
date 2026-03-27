@@ -53,7 +53,7 @@ const Footer = () => {
             <Linkedin size={20} />
           </a>
         </div>
-        <p className="text-muted-foreground text-sm">
+        <p className="text-muted-foreground text-sm whitespace-nowrap">
           © 2025 Dibuat dengan <span className="text-destructive">❤️</span> oleh <span className="text-primary font-medium">Yoga Pratama</span>
         </p>
       </div>

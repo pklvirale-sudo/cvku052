@@ -1,13 +1,6 @@
-import { Briefcase, Mail, Bot, Award, Rocket, Scissors } from "lucide-react";
+import { Briefcase, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import profilePhoto from "@/assets/profile-photo.png";
-
-const trustItems = [
-  { icon: Rocket, label: "5+ Project" },
-  { icon: Award, label: "2 Sertifikasi" },
-  { icon: Scissors, label: "Barber & Web Creator" },
-  { icon: Bot, label: "AI-Based Portfolio" },
-];
 
 const HeroSection = () => {
   const scrollToProjects = () => {
@@ -15,9 +8,6 @@ const HeroSection = () => {
   };
   const scrollToContact = () => {
     document.getElementById("kontak")?.scrollIntoView({ behavior: "smooth" });
-  };
-  const openChatbot = () => {
-    window.dispatchEvent(new CustomEvent("open-chatbot"));
   };
 
   return (
@@ -68,43 +58,21 @@ const HeroSection = () => {
         Saya menggabungkan kreativitas, teknologi, dan AI untuk menciptakan solusi modern yang bermanfaat — mulai dari jasa barber hingga project website dan aplikasi berbasis AI.
       </motion.p>
 
-      {/* CTA Buttons - 3 inline */}
+      {/* CTA Buttons - 2 inline */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="flex flex-row flex-wrap justify-center gap-2.5 mb-10 px-2"
+        className="flex flex-row justify-center gap-3 px-2"
       >
         <button onClick={scrollToProjects} className="btn-primary-sm text-xs sm:text-sm whitespace-nowrap">
           <Briefcase size={14} />
           Lihat Project
         </button>
-        <button onClick={openChatbot} className="btn-outline-sm text-xs sm:text-sm whitespace-nowrap">
-          <Bot size={14} />
-          Tanya AI
-        </button>
         <button onClick={scrollToContact} className="btn-outline-sm text-xs sm:text-sm whitespace-nowrap">
           <Mail size={14} />
           Hubungi Saya
         </button>
-      </motion.div>
-
-      {/* Trust Indicators */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6, delay: 0.7 }}
-        className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full max-w-lg px-2"
-      >
-        {trustItems.map((item, i) => (
-          <div
-            key={i}
-            className="flex items-center gap-2 rounded-xl px-3 py-2.5 text-xs sm:text-sm border border-border/40 bg-card/40 backdrop-blur-sm"
-          >
-            <item.icon size={14} className="text-primary flex-shrink-0" />
-            <span className="text-muted-foreground whitespace-nowrap">{item.label}</span>
-          </div>
-        ))}
       </motion.div>
     </section>
   );

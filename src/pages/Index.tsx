@@ -5,7 +5,6 @@ import SkillsSection from "@/components/SkillsSection";
 import CertificationSection from "@/components/CertificationSection";
 import ExperienceSection from "@/components/ExperienceSection";
 import TechSection from "@/components/TechSection";
-import WhyDifferentSection from "@/components/WhyDifferentSection";
 import InProgressSection from "@/components/InProgressSection";
 import EducationSection from "@/components/EducationSection";
 import ContactSection from "@/components/ContactSection";
@@ -17,12 +16,11 @@ const Index = () => {
     <main className="min-h-screen overflow-x-hidden">
       <HeroSection />
       <AboutSection />
-      <ServicesSection />
       <SkillsSection />
+      <ServicesSection />
       <CertificationSection />
       <ExperienceSection />
       <TechSection />
-      <WhyDifferentSection />
       <InProgressSection />
       <EducationSection />
       <ContactSection />
