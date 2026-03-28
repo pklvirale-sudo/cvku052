@@ -123,7 +123,7 @@ const ContactSection = () => {
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="glass-card mx-auto flex w-full max-w-sm items-center gap-4 text-left"
+              className="glass-card mx-auto flex w-full max-w-md items-center gap-4 text-left"
             >
               <motion.div 
                 whileHover={{ rotate: 15, scale: 1.1 }}
@@ -150,7 +150,7 @@ const ContactSection = () => {
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="glass-card mx-auto flex w-full max-w-sm items-center gap-4 text-left"
+              className="glass-card mx-auto flex w-full max-w-md items-center gap-4 text-left"
             >
               <motion.div 
                 whileHover={{ rotate: 15, scale: 1.1 }}
