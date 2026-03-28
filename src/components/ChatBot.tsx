@@ -183,10 +183,10 @@ const ChatBot = () => {
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.92 }}
               onClick={() => setOpen(true)}
-              className="ai-fab w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 p-0"
+              className="ai-fab flex items-center justify-center flex-shrink-0 p-0 bg-transparent border-none"
               aria-label="Buka chatbot"
             >
-              <img src={aiRobotIcon} alt="AI Assistant" className="w-7 h-7 object-contain" />
+              <img src={aiRobotIcon} alt="AI Assistant" className="w-11 h-11 object-contain drop-shadow-[0_0_8px_hsl(202_100%_58%/0.4)]" />
             </motion.button>
           </div>
         )}
@@ -212,8 +212,8 @@ const ChatBot = () => {
               >
                 <ArrowLeft size={18} className="text-muted-foreground" />
               </button>
-              <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden bg-primary/10 border border-primary/30 p-1">
-                <img src={aiRobotIcon} alt="AI" className="w-full h-full object-contain" />
+              <div className="w-9 h-9 flex items-center justify-center overflow-hidden">
+                <img src={aiRobotIcon} alt="AI" className="w-8 h-8 object-contain" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-foreground leading-tight">Asisten Portfolio Yoga</p>
