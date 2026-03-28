@@ -159,7 +159,7 @@ const ChatBot = () => {
       {/* Floating Button + Tooltip */}
       <AnimatePresence>
         {!open && (
-          <div className="fixed bottom-8 right-4 z-50 flex flex-col items-end gap-2">
+          <div className="fixed bottom-5 right-4 z-50 flex flex-col items-end gap-2.5">
             {/* Tooltip as chat bubble */}
             <AnimatePresence>
               {showTooltip && (
@@ -168,7 +168,7 @@ const ChatBot = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.9 }}
                   transition={{ duration: 0.35 }}
-                  className="px-3 py-2 rounded-xl rounded-br-sm text-[11px] leading-snug max-w-[200px] border border-primary/25 bg-card/95 backdrop-blur-md text-foreground shadow-md"
+                   className="max-w-[210px] rounded-xl rounded-br-sm border border-primary/25 bg-card/95 px-3.5 py-2.5 text-xs leading-snug text-foreground shadow-md backdrop-blur-md"
                 >
                   Ada pertanyaan? AI Assistant siap membantumu
                 </motion.div>
@@ -186,7 +186,7 @@ const ChatBot = () => {
               className="ai-fab flex items-center justify-center flex-shrink-0 p-0 bg-transparent border-none"
               aria-label="Buka chatbot"
             >
-              <img src={aiRobotIcon} alt="AI Assistant" className="w-14 h-14 object-contain drop-shadow-[0_0_10px_hsl(202_100%_58%/0.35)]" />
+              <img src={aiRobotIcon} alt="AI Assistant" className="h-16 w-16 object-contain drop-shadow-[0_0_12px_hsl(202_100%_58%/0.35)]" />
             </motion.button>
           </div>
         )}
@@ -200,11 +200,11 @@ const ChatBot = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            className="fixed inset-0 z-50 flex flex-col h-[100dvh]"
+            className="fixed inset-0 z-50 flex h-[100dvh] w-screen max-h-[100dvh] flex-col overflow-hidden"
             style={{ background: "hsl(var(--background))" }}
           >
             {/* Header */}
-            <div className="flex items-center gap-3 px-4 py-3.5 border-b border-border/30 bg-card/80 backdrop-blur-md safe-top">
+            <div className="flex items-center gap-3 border-b border-border/30 bg-card/80 px-4 pb-4 pt-[calc(env(safe-area-inset-top)+14px)] backdrop-blur-md">
               <button
                 onClick={() => setOpen(false)}
                 className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-secondary/60 transition-colors"
@@ -212,11 +212,11 @@ const ChatBot = () => {
               >
                 <ArrowLeft size={18} className="text-muted-foreground" />
               </button>
-              <div className="w-10 h-10 flex items-center justify-center overflow-hidden">
-                <img src={aiRobotIcon} alt="AI" className="w-10 h-10 object-contain" />
+              <div className="flex h-12 w-12 items-center justify-center overflow-hidden">
+                <img src={aiRobotIcon} alt="AI" className="h-12 w-12 object-contain" />
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-semibold text-foreground leading-tight">Asisten Portfolio Yoga</p>
+              <div className="min-w-0 flex-1">
+                <p className="text-[13px] font-semibold leading-snug text-foreground sm:text-sm">Asisten Portfolio Yoga</p>
                 <p className="text-[10px] text-muted-foreground mt-0.5">
                   {isLoading ? (
                     <span className="text-primary">Sedang mengetik...</span>
@@ -231,7 +231,7 @@ const ChatBot = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto px-4 py-4 space-y-3 overscroll-contain">
+            <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-3 min-h-0">
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
@@ -281,7 +281,7 @@ const ChatBot = () => {
             </div>
 
             {/* Input */}
-            <div className="px-4 py-3.5 border-t border-border/30 bg-card/80 backdrop-blur-md safe-bottom">
+            <div className="border-t border-border/30 bg-card/80 px-4 pb-[calc(env(safe-area-inset-bottom)+16px)] pt-4 backdrop-blur-md">
               <div className="flex gap-2.5">
                 <input
                   ref={inputRef}
@@ -289,13 +289,13 @@ const ChatBot = () => {
                   onChange={(e) => setInput(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && !e.shiftKey && send()}
                   placeholder="Tanyakan sesuatu tentang Yoga..."
-                  className="flex-1 bg-secondary/40 border border-border/40 rounded-xl px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/50 transition-all"
+                  className="flex-1 rounded-xl border border-border/40 bg-secondary/40 px-4 py-3 text-sm text-foreground transition-all placeholder:text-muted-foreground/60 focus:outline-none focus:ring-1 focus:ring-primary/50"
                   disabled={isLoading}
                 />
                 <button
                   onClick={send}
                   disabled={isLoading || !input.trim()}
-                  className="w-10 h-10 rounded-xl flex items-center justify-center bg-primary text-primary-foreground disabled:opacity-40 hover:brightness-110 transition-all flex-shrink-0"
+                  className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground transition-all hover:brightness-110 disabled:opacity-40"
                   aria-label="Kirim pesan"
                 >
                   <Send size={16} />

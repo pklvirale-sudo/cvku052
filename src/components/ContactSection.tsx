@@ -110,11 +110,11 @@ const ContactSection = () => {
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="section-underline mb-12" 
+          className="section-underline mb-8" 
         />
 
         <div className="space-y-6 flex flex-col items-center">
-          <div className="grid gap-4 md:grid-cols-2 w-full">
+          <div className="flex w-full flex-col items-center gap-4 md:grid md:grid-cols-2 md:gap-5">
             <motion.a
               href="mailto:pratamma0906@gmail.com"
               initial={{ opacity: 0, x: -30 }}
@@ -123,7 +123,7 @@ const ContactSection = () => {
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="glass-card flex items-center gap-4"
+              className="glass-card mx-auto flex w-full max-w-sm items-center gap-4 text-left"
             >
               <motion.div 
                 whileHover={{ rotate: 15, scale: 1.1 }}
@@ -150,7 +150,7 @@ const ContactSection = () => {
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="glass-card flex items-center gap-4"
+              className="glass-card mx-auto flex w-full max-w-sm items-center gap-4 text-left"
             >
               <motion.div 
                 whileHover={{ rotate: 15, scale: 1.1 }}
@@ -171,8 +171,9 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
+            className="w-full max-w-sm"
           >
-            <LedCard>
+            <LedCard className="w-full">
               <h3 className="font-heading text-xl font-semibold text-foreground mb-6">
                 Kirim Pesan
               </h3>
