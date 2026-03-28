@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowLeft, Send, Bot } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import aiRobotIcon from "@/assets/ai-robot-icon.png";
 
 type Msg = { role: "user" | "assistant"; content: string; time: string };
 
@@ -158,21 +159,18 @@ const ChatBot = () => {
       {/* Floating Button + Tooltip */}
       <AnimatePresence>
         {!open && (
-          <div className="fixed bottom-6 right-5 z-50 flex items-end gap-2.5">
-            {/* Tooltip */}
+          <div className="fixed bottom-5 right-4 z-50 flex flex-col items-end gap-2">
+            {/* Tooltip as chat bubble */}
             <AnimatePresence>
               {showTooltip && (
                 <motion.div
-                  initial={{ opacity: 0, x: 10, scale: 0.9 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: 10, scale: 0.9 }}
+                  initial={{ opacity: 0, y: 8, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.9 }}
                   transition={{ duration: 0.35 }}
-                  className="mb-1 px-3 py-2 rounded-xl text-xs leading-snug max-w-[180px] border border-border/40 bg-card/90 backdrop-blur-md text-muted-foreground shadow-lg"
-                  style={{
-                    boxShadow: "0 4px 20px hsl(202 100% 58% / 0.15)",
-                  }}
+                  className="px-3 py-2 rounded-xl rounded-br-sm text-[11px] leading-snug max-w-[200px] border border-primary/25 bg-card/95 backdrop-blur-md text-foreground shadow-md"
                 >
-                  Ada pertanyaan? AI Assistant siap membantumu
+                  Ada pertanyaan? AI Assistant siap membantumu 🤖
                 </motion.div>
               )}
             </AnimatePresence>
@@ -185,10 +183,10 @@ const ChatBot = () => {
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.92 }}
               onClick={() => setOpen(true)}
-              className="ai-fab w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0"
+              className="ai-fab w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 p-1.5"
               aria-label="Buka chatbot"
             >
-              <Bot size={20} className="text-primary-foreground" />
+              <img src={aiRobotIcon} alt="AI Assistant" className="w-full h-full object-contain" />
             </motion.button>
           </div>
         )}
@@ -214,8 +212,8 @@ const ChatBot = () => {
               >
                 <ArrowLeft size={18} className="text-muted-foreground" />
               </button>
-              <div className="w-9 h-9 rounded-full flex items-center justify-center bg-primary/15 border border-primary/30">
-                <Bot size={18} className="text-primary" />
+              <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden bg-primary/10 border border-primary/30 p-1">
+                <img src={aiRobotIcon} alt="AI" className="w-full h-full object-contain" />
               </div>
               <div className="flex-1">
                 <p className="text-sm font-semibold text-foreground leading-tight">Asisten Portfolio Yoga</p>

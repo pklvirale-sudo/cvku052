@@ -247,29 +247,30 @@
 
   /* Floating AI Assistant Button */
   .ai-fab {
-    background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(202 80% 42%) 100%);
+    background: linear-gradient(135deg, hsl(205 50% 12%) 0%, hsl(205 45% 8%) 100%);
+    border: 1px solid hsl(var(--primary) / 0.3);
     box-shadow:
-      0 4px 20px hsl(var(--glow-primary) / 0.4),
-      0 0 0 0 hsl(var(--glow-primary) / 0.3);
-    animation: ai-fab-pulse 3s ease-in-out infinite;
+      0 2px 12px hsl(var(--glow-primary) / 0.2),
+      0 0 0 0 hsl(var(--glow-primary) / 0.15);
+    animation: ai-fab-pulse 4s ease-in-out infinite;
   }
 
   .ai-fab:hover {
     box-shadow:
-      0 6px 28px hsl(var(--glow-primary) / 0.55),
-      0 0 0 4px hsl(var(--glow-primary) / 0.15);
+      0 4px 20px hsl(var(--glow-primary) / 0.35),
+      0 0 0 3px hsl(var(--glow-primary) / 0.1);
   }
 
   @keyframes ai-fab-pulse {
     0%, 100% {
       box-shadow:
-        0 4px 20px hsl(var(--glow-primary) / 0.4),
-        0 0 0 0 hsl(var(--glow-primary) / 0.25);
+        0 2px 12px hsl(var(--glow-primary) / 0.2),
+        0 0 0 0 hsl(var(--glow-primary) / 0.12);
     }
     50% {
       box-shadow:
-        0 6px 24px hsl(var(--glow-primary) / 0.5),
-        0 0 0 6px hsl(var(--glow-primary) / 0.08);
+        0 4px 16px hsl(var(--glow-primary) / 0.3),
+        0 0 0 4px hsl(var(--glow-primary) / 0.05);
     }
   }
 

@@ -11,15 +11,15 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center px-5 sm:px-6 md:px-8 pb-16 pt-12 sm:pt-14 relative overflow-hidden min-h-[100svh]">
+    <section className="flex flex-col items-center justify-center px-5 sm:px-6 md:px-8 pb-12 pt-8 sm:pt-10 relative overflow-hidden min-h-[100svh]">
       {/* Profile Photo */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6 }}
-        className="profile-ring mb-6"
+        className="profile-ring mb-4"
       >
-        <div className="profile-photo-bg w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full overflow-hidden">
+        <div className="profile-photo-bg w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full overflow-hidden">
           <img
             src={profilePhoto}
             alt="Yoga Pratama"
@@ -33,7 +33,7 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="name-glow text-2xl sm:text-3xl md:text-5xl text-center mb-3 cursor-default"
+        className="name-glow text-2xl sm:text-3xl md:text-5xl text-center mb-2 cursor-default"
       >
         Yoga Pratama
       </motion.h1>
@@ -53,7 +53,7 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
-        className="text-muted-foreground text-center max-w-md mb-8 text-xs sm:text-sm md:text-base px-2 leading-relaxed"
+        className="text-muted-foreground text-center max-w-md mb-6 text-xs sm:text-sm md:text-base px-2 leading-relaxed"
       >
         Saya menggabungkan kreativitas, teknologi, dan AI untuk menciptakan solusi modern yang bermanfaat — mulai dari jasa barber hingga project website dan aplikasi berbasis AI.
       </motion.p>
