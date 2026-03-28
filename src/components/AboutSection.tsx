@@ -3,7 +3,7 @@ import LedCard from "./LedCard";
 
 const AboutSection = () => {
   return (
-    <section id="tentang" className="pb-7 pt-4 px-4 sm:px-6 md:px-8 sm:pt-6">
+    <section id="tentang" className="py-10 px-5 sm:px-6 md:px-8">
       <div className="container max-w-5xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
