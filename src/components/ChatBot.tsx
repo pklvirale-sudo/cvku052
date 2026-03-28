@@ -183,10 +183,10 @@ const ChatBot = () => {
               whileHover={{ scale: 1.08 }}
               whileTap={{ scale: 0.92 }}
               onClick={() => setOpen(true)}
-              className="ai-fab w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 p-1.5"
+              className="ai-fab w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 p-0"
               aria-label="Buka chatbot"
             >
-              <img src={aiRobotIcon} alt="AI Assistant" className="w-full h-full object-contain" />
+              <img src={aiRobotIcon} alt="AI Assistant" className="w-7 h-7 object-contain" />
             </motion.button>
           </div>
         )}
@@ -200,7 +200,7 @@ const ChatBot = () => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "100%" }}
             transition={{ type: "spring", damping: 28, stiffness: 300 }}
-            className="fixed inset-0 z-50 flex flex-col"
+            className="fixed inset-0 z-50 flex flex-col h-[100dvh]"
             style={{ background: "hsl(var(--background))" }}
           >
             {/* Header */}
