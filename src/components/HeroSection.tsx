@@ -11,13 +11,13 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-center px-5 sm:px-6 md:px-8 pb-8 pt-3 sm:pt-4 relative overflow-hidden min-h-[100svh]">
+    <section className="flex flex-col items-center justify-center px-5 sm:px-6 md:px-8 pb-6 pt-[10px] relative overflow-hidden min-h-[100svh]">
       {/* Profile Photo */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6 }}
-        className="profile-ring mb-2"
+        className="profile-ring mb-1.5"
       >
         <div className="profile-photo-bg w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 rounded-full overflow-hidden">
           <img
@@ -33,7 +33,7 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.3 }}
-        className="name-glow text-2xl sm:text-3xl md:text-5xl text-center mb-1 cursor-default"
+        className="name-glow text-2xl sm:text-3xl md:text-5xl text-center mb-0.5 cursor-default"
       >
         Yoga Pratama
       </motion.h1>
@@ -43,7 +43,7 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.4 }}
-        className="font-heading text-sm sm:text-base md:text-lg text-primary text-center mb-2 tracking-wide"
+        className="font-heading text-sm sm:text-base md:text-lg text-primary text-center mb-1.5 tracking-wide"
       >
         Barber, Web Builder & AI Creator
       </motion.h2>
@@ -53,24 +53,24 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
-        className="text-muted-foreground text-center max-w-md mb-5 text-xs sm:text-sm md:text-base px-2 leading-relaxed"
+        className="text-muted-foreground text-center max-w-md mb-4 text-xs sm:text-sm md:text-base px-2 leading-relaxed"
       >
         Saya menggabungkan kreativitas, teknologi, dan AI untuk menciptakan solusi modern yang bermanfaat — mulai dari jasa barber hingga project website dan aplikasi berbasis AI.
       </motion.p>
 
-      {/* CTA Buttons - 2 inline */}
+      {/* CTA Buttons - wider to match card width */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="flex flex-row justify-center gap-3 px-2"
+        className="flex flex-row justify-center gap-3 px-4 w-full max-w-sm"
       >
-        <button onClick={scrollToProjects} className="btn-primary-sm text-xs sm:text-sm whitespace-nowrap">
-          <Briefcase size={14} />
+        <button onClick={scrollToProjects} className="btn-primary-sm text-sm flex-1 justify-center whitespace-nowrap">
+          <Briefcase size={16} />
           Lihat Project
         </button>
-        <button onClick={scrollToContact} className="btn-outline-sm text-xs sm:text-sm whitespace-nowrap">
-          <Mail size={14} />
+        <button onClick={scrollToContact} className="btn-outline-sm text-sm flex-1 justify-center whitespace-nowrap">
+          <Mail size={16} />
           Hubungi Saya
         </button>
       </motion.div>

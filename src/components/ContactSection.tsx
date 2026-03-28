@@ -113,8 +113,8 @@ const ContactSection = () => {
           className="section-underline mb-12" 
         />
 
-        <div className="space-y-6">
-          <div className="grid gap-4 md:grid-cols-2">
+        <div className="space-y-6 flex flex-col items-center">
+          <div className="grid gap-4 md:grid-cols-2 w-full">
             <motion.a
               href="mailto:pratamma0906@gmail.com"
               initial={{ opacity: 0, x: -30 }}
