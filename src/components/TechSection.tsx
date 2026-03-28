@@ -22,8 +22,8 @@ const technologies = [
 
 const TechSection = () => {
   return (
-    <section id="teknologi" className="py-16 px-5 sm:px-6 md:px-8">
-      <div className="container max-w-4xl mx-auto">
+    <section id="teknologi" className="py-12 px-4 sm:px-6 md:px-8">
+      <div className="container max-w-5xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
