@@ -2,7 +2,7 @@ import { Instagram, Youtube, Github, Linkedin } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="py-10 px-5 sm:px-6 border-t border-border/30">
+    <footer className="py-10 px-3 sm:px-6 border-t border-border/30">
       <div className="container max-w-4xl mx-auto flex flex-col items-center gap-4">
         <div className="flex items-center gap-4">
           <a
