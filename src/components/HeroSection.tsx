@@ -11,7 +11,7 @@ const HeroSection = () => {
   };
 
   return (
-    <section className="flex flex-col items-center justify-start px-5 sm:px-6 md:px-8 pb-3 pt-[calc(env(safe-area-inset-top)+10px)] sm:pb-6 relative overflow-hidden min-h-[auto] sm:min-h-[92svh]">
+    <section className="flex flex-col items-center justify-start px-5 sm:px-6 md:px-8 pb-3 pt-[calc(env(safe-area-inset-top)+5px)] sm:pb-6 relative overflow-hidden min-h-[auto] sm:min-h-[92svh]">
       {/* Profile Photo */}
       <motion.div
         initial={{ opacity: 0, scale: 0.8 }}
@@ -63,7 +63,7 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="flex w-full max-w-sm flex-col justify-center gap-3 px-0 sm:max-w-2xl sm:flex-row sm:px-4"
+        className="flex w-full max-w-sm flex-row justify-center gap-3 px-0 sm:max-w-2xl sm:px-4"
       >
         <button onClick={scrollToProjects} className="btn-primary-sm min-h-12 w-full justify-center text-sm sm:flex-1">
           <Briefcase size={18} />
