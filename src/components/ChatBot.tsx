@@ -170,7 +170,7 @@ const ChatBot = () => {
                   transition={{ duration: 0.35 }}
                   className="px-3 py-2 rounded-xl rounded-br-sm text-[11px] leading-snug max-w-[200px] border border-primary/25 bg-card/95 backdrop-blur-md text-foreground shadow-md"
                 >
-                  Ada pertanyaan? AI Assistant siap membantumu 🤖
+                  Ada pertanyaan? AI Assistant siap membantumu
                 </motion.div>
               )}
             </AnimatePresence>
