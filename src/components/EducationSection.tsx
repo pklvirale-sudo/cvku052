@@ -43,7 +43,7 @@ const EducationSection = () => {
           whileInView={{ scaleX: 1 }}
           transition={{ duration: 0.6, delay: 0.2 }}
           viewport={{ once: true }}
-          className="section-underline mb-12" 
+          className="section-underline mb-8" 
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
