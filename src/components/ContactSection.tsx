@@ -94,7 +94,7 @@ const ContactSection = () => {
   const isLoading = status === "loading";
 
   return (
-    <section id="kontak" className="py-7 px-4 sm:px-6 md:px-8">
+    <section id="kontak" className="py-10 px-5 sm:px-6 md:px-8">
       <div className="container max-w-5xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
@@ -123,7 +123,7 @@ const ContactSection = () => {
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="glass-card mx-auto flex w-full max-w-md items-center gap-4 text-left"
+              className="glass-card mx-auto flex w-full items-center gap-4 text-left"
             >
               <motion.div 
                 whileHover={{ rotate: 15, scale: 1.1 }}
@@ -150,7 +150,7 @@ const ContactSection = () => {
               whileTap={{ scale: 0.97 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="glass-card mx-auto flex w-full max-w-md items-center gap-4 text-left"
+              className="glass-card mx-auto flex w-full items-center gap-4 text-left"
             >
               <motion.div 
                 whileHover={{ rotate: 15, scale: 1.1 }}
@@ -171,7 +171,7 @@ const ContactSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="w-full max-w-sm"
+            className="w-full"
           >
             <LedCard className="w-full">
               <h3 className="font-heading text-xl font-semibold text-foreground mb-6">
