@@ -160,7 +160,7 @@ const ChatBot = () => {
       <AnimatePresence>
         {!open && (
           <div className="fixed bottom-5 right-4 z-50 flex flex-col items-end gap-2.5">
-            {/* Tooltip as chat bubble */}
+            {/* Tooltip as speech bubble */}
             <AnimatePresence>
               {showTooltip && (
                 <motion.div
@@ -168,9 +168,11 @@ const ChatBot = () => {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: 8, scale: 0.9 }}
                   transition={{ duration: 0.35 }}
-                   className="max-w-[210px] rounded-xl rounded-br-sm border border-primary/25 bg-card/95 px-3.5 py-2.5 text-xs leading-snug text-foreground shadow-md backdrop-blur-md"
+                  className="relative max-w-[210px] rounded-2xl border border-primary/25 bg-card/95 px-3.5 py-2.5 text-xs leading-snug text-foreground shadow-md backdrop-blur-md"
                 >
                   Ada pertanyaan? AI Assistant siap membantumu
+                  {/* Speech bubble tail */}
+                  <div className="absolute -bottom-2 right-5 w-0 h-0 border-l-[8px] border-l-transparent border-r-[8px] border-r-transparent border-t-[8px] border-t-[hsl(var(--card)/0.95)]" />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -231,7 +233,15 @@ const ChatBot = () => {
             </div>
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-3 min-h-0">
+            <div
+              className="flex-1 overflow-y-auto overscroll-contain px-4 py-4 space-y-3 min-h-0"
+              style={{
+                backgroundImage: "url('https://res.cloudinary.com/dxuctio0i/image/upload/v1774697134/file_0000000007907208862905f323984fcf_sgbcj3.png')",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                backgroundRepeat: "no-repeat",
+              }}
+            >
               {messages.map((msg, i) => (
                 <div key={i} className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}>
                   <div
