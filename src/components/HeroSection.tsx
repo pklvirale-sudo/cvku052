@@ -58,19 +58,19 @@ const HeroSection = () => {
         Saya menggabungkan kreativitas, teknologi, dan AI untuk menciptakan solusi modern yang bermanfaat — mulai dari jasa barber hingga project website dan aplikasi berbasis AI.
       </motion.p>
 
-      {/* CTA Buttons - wider to match card width */}
+      {/* CTA Buttons */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.6 }}
-        className="flex w-full max-w-sm flex-row justify-center gap-3 px-0 sm:max-w-2xl sm:px-4"
+        className="flex w-full max-w-sm flex-row justify-center gap-3 px-2"
       >
-        <button onClick={scrollToProjects} className="btn-primary-sm min-h-12 w-full justify-center text-sm sm:flex-1">
-          <Briefcase size={18} />
-          Lihat Project
+        <button onClick={scrollToProjects} className="btn-primary-sm min-h-[44px] flex-1 justify-center text-[13px]">
+          <Briefcase size={16} />
+          Lihat Portofolio
         </button>
-        <button onClick={scrollToContact} className="btn-outline-sm min-h-12 w-full justify-center text-sm sm:flex-1">
-          <Mail size={18} />
+        <button onClick={scrollToContact} className="btn-outline-sm min-h-[44px] flex-1 justify-center text-[13px]">
+          <Mail size={16} />
           Hubungi Saya
         </button>
       </motion.div>

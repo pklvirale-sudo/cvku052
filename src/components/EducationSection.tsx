@@ -27,7 +27,7 @@ const education = [
 
 const EducationSection = () => {
   return (
-    <section id="pendidikan" className="py-10 px-3 sm:px-6 md:px-8">
+    <section id="pendidikan" className="py-10 px-2 sm:px-6 md:px-8">
       <div className="container max-w-5xl mx-auto">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
